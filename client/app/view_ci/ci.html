@@ -1,0 +1,116 @@
+<!doctype html>
+<html ng-app="app" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+
+    <script src="../libs/angular.js"></script>
+    <script src="../libs/angular-touch.js"></script>
+    <script src="../libs/angular-animate.js"></script>
+    <script src="../libs/csv.js"></script>
+    <script src="../libs/pdfmake.js"></script>
+    <script src="../libs/vfs_fonts.js"></script>
+    <script src="../libs/ui-grid.js"></script>
+    <script src="../libs/jquery-3.1.1.min.js"></script>
+    <script src="../libs/highcharts.js"></script>
+    <script src="../libs/heatmap.js"></script>
+    <script src="../libs/treemap.js"></script>
+    <script src="../libs/bootstrap.min.js"></script>
+
+    <link rel="shortcut icon" href="../icon/favicon.ico">
+    <link rel="stylesheet" href="../libs/ui-grid.css" type="text/css">
+    <link rel="stylesheet" href="../styles/ci.css" type="text/css">
+    <link rel="stylesheet" href="../libs/bootstrap.min.css" type="text/css">
+
+    <title>TruClient Automation Report Center</title>
+    <style>
+        #data-summary div {
+            float: left;
+            width: 25%
+        }
+
+        #data-summary div span {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <h3 style="line-height: 150%; color: #610b38">TruClient CI Automation Report Center</h3>
+    <hr class="hr"/>
+    <div ng-controller="ciCtrl" class="page_content">
+
+        <div class="side_bar">
+            <div ui-grid="gridBuildList" ui-grid-pagination ui-grid-selection class="side_bar_grid"></div>
+            <p>Current page: {{ gridBuildApi.pagination.getPage() }} of {{ gridBuildApi.pagination.getTotalPages() }}</p>
+            <button type="button" class="btn btn-success" style="background-color: #017F5D; border-color: transparent" ng-click="gridBuildApi.pagination.seek(1)">
+                &lt;&lt;
+            </button>
+            <button type="button" class="btn btn-success" style="background-color: #017F5D; border-color: transparent" ng-click="gridBuildApi.pagination.previousPage()">
+                &lt;
+            </button>
+            <button type="button" class="btn btn-success" style="background-color: #017F5D; border-color: transparent" ng-click="gridBuildApi.pagination.nextPage()">
+                &gt;
+            </button>
+            <button type="button" class="btn btn-success" style="background-color: #017F5D; border-color: transparent" ng-click="gridBuildApi.pagination.seek(gridBuildApi.pagination.getTotalPages())">
+                &gt;&gt;
+            </button>
+        </div>
+
+
+        <div class="data_view">
+            <div class="data_view_head" id="data-summary">
+
+                <div class="data_view_head_left">
+                    <span><b>Committed By:</b></span>
+                    <span><b>Start Time:</b>  {{summary.startTime}}</span>
+                    <span><b>Duration:</b>  {{summary.duration}}s</span>
+                    <span><b>OS Name:</b>  {{summary.os}}</span>
+                    <span><b>Browser:</b> {{summary.ieversion}}&nbsp;{{summary.ffversion}}&nbsp;{{summary.gcversion}}</span>
+                </div>
+                <div class="data_view_head_right">
+                    <span style="color: #01a982;"><b>Pass:</b> &nbsp;{{summary.pass}}</span>
+                    <span style="color: #FF6384;"><b>Fail:</b> &nbsp;{{summary.fail}}</span>
+                    <span style="color: orange;" ><b>Warning:</b> &nbsp;{{summary.warning}}</span>
+                    <span style="color: #4d4d4d;"><b>Analyzed Ratio:</b> {{analyzeratio}}</span>
+                </div>
+                <div class="data_view_head_chart" id="container"></div>
+
+            </div>
+
+            <div ui-grid="gridRecordList" ui-grid-pagination ui-grid-cellNav ui-grid-edit ui-grid-validate class="data_view_grid"></div>
+
+
+        </div>
+
+        <div class="modal fade" id="historyModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">History of last 100 builds</h4>
+                </div>
+
+                <div id="history_container" class="modal-body">
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    </div>
+
+    <script src="ciApp.js"></script>
+	<script src="ciCtrl.js"></script>
+    <script src="history.js"></script>
+
+</body>
+
+</html>
