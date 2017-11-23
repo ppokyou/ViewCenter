@@ -3,7 +3,7 @@
 var app = require('../app');
 var pg = require('../lib/postgres');
 
-var DATABASE_URL = 'postgres://postgres:sudo@16.34.225.206/tcauto'
+var DATABASE_URL = ''
 
 // Connect to postgresql database
 pg.initialize(DATABASE_URL, function(err) {
