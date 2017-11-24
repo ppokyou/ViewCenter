@@ -9,7 +9,7 @@ module.exports = {
         port: 5000
     },
     postgres: {
-        url: 'postgres://postgres:sudo@/localhost/tcauto',
+        url: '',
         dbName: 'tcauto'
     }
 };
